@@ -1,0 +1,159 @@
+<div class="container my-5">
+  <div class="window">
+    <div class="order-info">
+      <div class="order-info-content">
+        <h2>Order Summary</h2>
+        <div class="line"></div>
+        <div class="row productsList" *ngFor="let product of getCartProducts()">
+          <table class="order-table">
+            <tbody>
+              <tr>
+                <td>
+                  <img src="{{ product.productImage }}" class="full-width" />
+                </td>
+                <td>
+                  <br />
+                  <span class="thin">{{ product.productName }}</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="price">
+                    {{
+                      product.productQuantity * product.productPrice
+                        | currency: "USD":"symbol-narrow"
+                    }}
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="line"></div>
+        </div>
+
+        <div class="total">
+          <span style="float: left"> TOTAL </span>
+          <span style="float: right; text-align: right">
+            {{ getTotalPrice() | currency: "USD":"symbol-narrow" }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <form [formGroup]="registerReactiveForm" (ngSubmit)="handleRegister()">
+      <div class="credit-info">
+        <div class="credit-info-content">
+          <table class="half-input-table">
+            <tr>
+              <td>Please select your card:</td>
+              <td>
+                <div class="dropdown" id="card-dropdown">
+                  <div class="dropdown-btn" id="current-card">Visa</div>
+                </div>
+              </td>
+            </tr>
+          </table>
+          <img
+            src="https://dl.dropboxusercontent.com/s/ubamyu6mzov5c80/visa_logo%20%281%29.png"
+            height="80"
+            class="credit-card-image"
+            id="credit-card-image"
+          />
+
+          <!-- Name -->
+          <div class="form-group">
+            <label for="exampleInputEmail1">Name</label>
+            <input
+              type="text"
+              formControlName="name"
+              class="form-control col-8"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              placeholder="Name"
+            />
+
+            <!-- Name Validation -->
+            <div
+              class="alert alert-danger col-8"
+              *ngIf="
+                registerFormControl.name.touched &&
+                !registerFormControl.name.valid
+              "
+            >
+              <div
+                *ngIf="registerFormControl.name.errors.required"
+                class="text-danger"
+              >
+                Name Required
+              </div>
+              <div
+                *ngIf="registerFormControl.name.errors.minlength"
+                class="text-danger"
+              >
+                Min char is 3
+              </div>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group pb-3">
+            <label for="exampleInputPassword1">Email</label>
+            <input
+              type="email"
+              formControlName="email"
+              class="form-control col-8"
+              id="exampleInputEmail1"
+              placeholder="Email"
+            />
+
+            <!-- Email Validation -->
+            <div
+              class="alert alert-danger col-8"
+              *ngIf="
+                registerFormControl.email.touched &&
+                !registerFormControl.email.valid
+              "
+            >
+              <div
+                *ngIf="registerFormControl.email.errors.required"
+                class="text-danger"
+              >
+                Email Required
+              </div>
+              <div
+                *ngIf="registerFormControl.email.errors.pattern"
+                class="text-danger"
+              >
+                Input Email in this formt x@x.xx
+              </div>
+            </div>
+          </div>
+
+          Card Number
+          <input class="input-field" />
+          Card Holder
+          <input class="input-field" />
+          <table class="half-input-table">
+            <tr>
+              <td>
+                Expires
+                <input class="input-field" />
+              </td>
+              <td>
+                CVC
+                <input class="input-field" />
+              </td>
+            </tr>
+          </table>
+          <button
+            [disabled]="!registerReactiveForm.valid"
+            (click)="goToPage('success')"
+            class="pay-btn"
+          >
+            Checkout
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

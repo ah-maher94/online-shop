@@ -1,0 +1,47 @@
+<!-- Start Menu -->
+<div class=" container navbar-container">
+  <nav>
+    <ul class="mcd-menu">
+      <li>
+        <a routerLink="/products" class="active">
+          <i class="fa fa-home exception"></i>
+          <strong>Home</strong>
+          <small>Home Page</small>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/products">
+          <i class="fa fa-list-alt exception" aria-hidden="true"></i>
+          <strong>Products</strong>
+          <small>All Products</small>
+        </a>
+      </li>
+      <li class="float">
+        <a routerLink="/shopping-cart">
+          <div id="badge">{{ getTotalCount() }}</div>
+          <i class="fa fa-shopping-cart shopping-cart-icon"></i>
+        </a>
+        <ul>
+          <li *ngFor="let product of getCartProducts()">
+            <a [routerLink]="['/products/', product.productId]">
+              <img
+                class="cart-img"
+                src="{{ product.productImage }}"
+                alt="product image"
+              />
+              <span class="badge badge-pill badge-warning"
+                >qnty: {{ product.productQuantity }}</span
+              >
+              <label>{{ product.productName }}</label>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a routerLink="/shopping-cart">
+          <i class="fa fa-user fa-3x" aria-hidden="true"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>

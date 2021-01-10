@@ -1,0 +1,84 @@
+<div class="container">
+  <div class="container">
+    <div class="row my-5 section-title text-center justify-content-around">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="wrapper">
+          <div class="container">
+            <div class="item-1 text">
+              <h2>
+                You have
+                <span class="badge badge-pill badge-warning">{{
+                  getTotalCount()
+                }}</span>
+                items in your cart
+              </h2>
+            </div>
+          </div>
+        </div>
+        <div class="title-icon"></div>
+      </div>
+    </div>
+
+    <figure class="product" *ngFor="let product of getCartProducts()">
+      <div class="product__hero">
+        <img
+          src="{{ product.productImage }}"
+          alt="product"
+          class="product__img"
+        />
+      </div>
+
+      <div class="product__content">
+        <div class="product__title">
+          <h1 class="product__heading">{{ product.productName }}</h1>
+        </div>
+        <p class="product__description"></p>
+        <div class="text-center productQuantityContainer" data-label="Quantity">
+          <div>
+            <button
+              (click)="removeFromCart(product)"
+              class="btn btn-secondary plusMinus"
+            >
+              -
+            </button>
+          </div>
+          <div class="product-Quantity">{{ product.productQuantity }}</div>
+          <div>
+            <button
+              (click)="addToCart(product)"
+              class="btn btn-secondary plusMinus"
+            >
+              +
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="product__price">
+        {{
+          product.productQuantity * product.productPrice
+            | currency: "USD":"symbol-narrow"
+        }}
+      </div>
+    </figure>
+
+    <div class="row my-5">
+      <h3>
+        <span class="ml-3 badge badge-secondary"
+          >Total Price
+          {{ getTotalPrice() | currency: "USD":"symbol-narrow" }}</span
+        >
+      </h3>
+    </div>
+
+    <button
+      (click)="clearCart()" class="btn btn-danger btn-sm mt-1 mb-5 mr-3">
+      Clear Cart Items
+    </button>
+    <button
+      routerLink="/order-success"
+      class="btn btn-success btn-sm mt-1 mb-5"
+    >
+      Proceed To Checkout
+    </button>
+  </div>
+</div>

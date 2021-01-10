@@ -1,0 +1,116 @@
+<!-- Start Products Section -->
+
+<section id="list-product">
+  <div class="container">
+    <div class="row my-5 section-title text-center justify-content-around">
+      <div class="col-md-3 col-md-offset-2">
+        <div class="wrapper">
+          <div class="container">
+            <div class="item-1 text">Products</div>
+          </div>
+        </div>
+        <div class="title-icon"></div>
+      </div>
+      <form class="form-inline my-2 my-lg-0 col-md-3">
+        <input
+          #query
+          (keyup)="filter(query.value)"
+          class="form-control mr-sm-2"
+          type="text"
+          placeholder="Search"
+          aria-label="Search"
+        />
+      </form>
+    </div>
+
+    <div class="row"></div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row justify-content-around">
+          <div class="col-md-4 my-5" *ngFor="let product of filteredProducts">
+            <div class="product-block">
+              <div class="left-block">
+                <a
+                  class="product_img_link"
+                  [routerLink]="['/products/', product.id]"
+                  title="Affiliates banner 300x250"
+                >
+                  <img
+                    class="img-responsive"
+                    src="{{ product.image }}"
+                    alt="Affiliates banner 300x250"
+                /></a>
+                <a
+                  [routerLink]="['/products/', product.id]"
+                  class="quick-view btn-tooltip"
+                  ><i class="fa fa-eye"></i
+                ></a>
+                <span class="label-new label">New</span>
+              </div>
+              <div class="right-block">
+                <div class="product-meta">
+                  <h5 class="name">
+                    <a
+                      [routerLink]="['/products/', product.id]"
+                      class="product-name"
+                      >{{ product.title }}</a
+                    >
+                  </h5>
+                  <div class="comments_note product-rating clearfix">
+                    <div class="star_content">
+                      <div class="star"></div>
+                      <div class="star"></div>
+                      <div class="star"></div>
+                      <div class="star"></div>
+                      <div class="star"></div>
+                    </div>
+                  </div>
+                  <div class="content_price">
+                    <span class="price-percent-reduction">{{
+                      product.price | currency: "USD":"symbol-narrow"
+                    }}</span>
+                  </div>
+                  <div class="functional-buttons clearfix">
+                    <button
+                      *ngIf="getQuantity(product.id) === 0; else updateQuantity"
+                      (click)="addToCart(product)"
+                      class="button ajax_add_to_cart_button btn-block text-center"
+                    >
+                      <span>Add to cart</span>
+                    </button>
+
+                    <ng-template #updateQuantity>
+                      <div class="row no-gutters cart-quantity">
+                        <div class="col-2">
+                          <button
+                            (click)="removeFromCart(product)"
+                            class="btn btn-secondary btn-block"
+                          >
+                            -
+                          </button>
+                        </div>
+                        <div class="col text-center">
+                          {{ getQuantity(product.id) }} in cart
+                        </div>
+                        <div class="col-2">
+                          <button
+                            (click)="addToCart(product)"
+                            class="btn btn-secondary btn-block"
+                          >
+                            +
+                          </button>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- End Products Section -->

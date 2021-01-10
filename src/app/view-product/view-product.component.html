@@ -1,0 +1,94 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 my-5">
+      <div class="product-block">
+        <div class="left-block">
+          <a
+            class="product_img_link"
+            target="_blank"
+            title="Affiliates banner 300x250"
+          >
+            <img
+              class="img-responsive"
+              src="{{ selectedProduct.image }}"
+              alt="Affiliates banner 300x250"
+          /></a>
+          <a target="_blank" class="quick-view btn-tooltip"
+            ><i class="fa fa-eye"></i
+          ></a>
+          <span class="label-new label">New</span>
+        </div>
+        <div class="right-block">
+          <div class="product-meta">
+            <h5 class="name">
+              <a class="product-name" target="_blank">{{
+                selectedProduct.title
+              }}</a>
+            </h5>
+            <div class="comments_note product-rating clearfix">
+              <div class="star_content">
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 my-5 ml-3">
+      <div class="row">
+        <h4>
+          <p>{{ selectedProduct.description }}</p>
+        </h4>
+      </div>
+      <div class="row">
+        <div class="content_price">
+          <span
+            class="price-percent-reduction badge badge-pill badge-success"
+            >{{ selectedProduct.price | currency: "USD":"symbol-narrow" }}</span
+          >
+        </div>
+      </div>
+
+      <div class="row my-5">
+        <div class="functional-buttons clearfix col-6">
+          <button
+            *ngIf="getQuantity(selectedProduct.id) === 0; else updateQuantity"
+            (click)="addToCart(selectedProduct)"
+            class="button ajax_add_to_cart_button btn-block text-center"
+          >
+            <span>Add to cart</span>
+          </button>
+
+          <ng-template #updateQuantity>
+            <div class="row no-gutters cart-quantity">
+              <div class="col-3">
+                <button
+                  (click)="removeFromCart(selectedProduct)"
+                  class="btn btn-secondary btn-block"
+                >
+                  -
+                </button>
+              </div>
+              <div class="col text-center">
+                {{ getQuantity(selectedProduct.id) }} in cart
+              </div>
+              <div class="col-3">
+                <button
+                  (click)="addToCart(selectedProduct)"
+                  class="btn btn-secondary btn-block"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
