@@ -71,10 +71,12 @@
     </div>
 
     <button
+      *ngIf="getTotalCount() !== 0;"
       (click)="clearCart()" class="btn btn-danger btn-sm mt-1 mb-5 mr-3">
       Clear Cart Items
     </button>
     <button
+      *ngIf="getTotalCount() !== 0;"
       routerLink="/order-success"
       class="btn btn-success btn-sm mt-1 mb-5"
     >
